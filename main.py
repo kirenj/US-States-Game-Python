@@ -27,7 +27,7 @@ states = data["state"]
 game_continue = True
 state_count = 0
 already_answered = []
-missing_states = []
+# missing_states = []
 
 while game_continue is True:
   answer = screen.textinput(title=f"{state_count}/50 States Correct", prompt="What's another state's name?")
@@ -46,15 +46,17 @@ while game_continue is True:
       # else:
       #   pass
     if answer == 'Exit':      
-      for i in states:
-        if i not in already_answered:
-          missing_states.append(i)
+      missing_states = [i for i in states if i not in already_answered]
+      # for i in states:
+      #   if i not in already_answered:
+      #     missing_states.append(i)
 
       missing_states_dict = {
         'States': missing_states,
       }
       states_to_learn = pandas.DataFrame(missing_states_dict)
       states_to_learn.to_csv("states_to_learn.csv")
+      # print(missing_states)
       break
   if state_count == 50:
     game_continue = False
